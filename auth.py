@@ -1,15 +1,18 @@
+#!/usr/bin/python3
 import requests
 import re
 import time
 import urllib.parse
 import urllib3
+import sys
+import getopt
 #disable request ssl verification
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 class captive_portal_authenticator():
-    def __init__(self):
-        self.password = "jimmy"
-        self.username = "jimmy"
+    def __init__(self,PASSWORD,USERNAME):
+        self.password = PASSWORD
+        self.username = USERNAME
         self.test_url = "https://google.com"
         self.sleeptime = 30
         self.fgt_redirect_url = ""
@@ -78,5 +81,26 @@ class captive_portal_authenticator():
         login_response.raise_for_status()
 
 
+def main(argv):
+    USERNAME = ''
+    PASSWORD = ''
+    try:
+        opts, args = getopt.getopt(argv,"hu:p:",["username=","password="])
+    except getopt.GetoptError:
+        print ('auth.py -u <username> -p <password>')
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h':
+            print ('auth.py -u <username> -p <password>')
+            sys.exit()
+        elif opt in ("-u", "--username"):
+            USERNAME = arg
+        elif opt in ("-p", "--password"):
+            PASSWORD = arg
 
-captive_portal_authenticator()
+    captive_portal_authenticator(PASSWORD,USERNAME)
+
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])

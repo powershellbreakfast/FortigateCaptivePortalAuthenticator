@@ -8,7 +8,7 @@ Download the file
 wget https://raw.githubusercontent.com/powershellbreakfast/FortigateCaptivePortalAuthenticator/main/auth.py
 ```
 
-## Modify
+## Optional: Modify
 if you want to store the username and password in the script you can modify it to do so.
 ```bash
 nano auth.py

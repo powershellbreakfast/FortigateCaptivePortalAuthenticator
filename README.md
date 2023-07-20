@@ -30,7 +30,20 @@ Execute the script.
 ```bash
 python3 auth.py
 ```
-Optionally: Create a Service to run the script.
+## Optional: Create a Service to run the script.
+Create a new service file
 ```bash
-
+sudo nano /etc/systemd/system/fgtauth.service
+```
+Inside the file paste this, make sure to replace `<username>` with the username of the home directory the file lives in. on my machine it was ubuntu so it would look like this `/home/ubuntu/auth.py`
+```bash
+[Unit]
+Description=A Service that runs a python script to authenticate a linux machine to fortigate's captive web portal.
+After=multi-user.target
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /home/<username>/auth.py
+[Install]
+WantedBy=multi-user.target
 ```

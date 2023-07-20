@@ -9,15 +9,16 @@ wget https://raw.githubusercontent.com/powershellbreakfast/FortigateCaptivePorta
 ```
 
 ## Modify
+if you want to store the username and password in the script you can modify it to do so.
 ```bash
 nano auth.py
 ```
-At the top of the script replace jimmy with your username and password you will use to login to the captive portal with. The time in between authentication checks can also be configured here it is set to 30 seconds by default.
+At the top of the script replace `USERNAME` with your "username" and `PASSWORD` with your "password" in qoutes that you will use to login to the captive portal. The time in between authentication checks can also be configured here it is set to 30 seconds by default.
 ```python
 class captive_portal_authenticator():
-    def __init__(self):
-        self.password = "jimmy"
-        self.username = "jimmy"
+    def __init__(self,PASSWORD,USERNAME):
+        self.password = PASSWORD
+        self.username = USERNAME
         self.test_url = "https://google.com"
         self.sleeptime = 30
         self.fgt_redirect_url = ""
@@ -28,7 +29,7 @@ class captive_portal_authenticator():
 ## Execute
 Execute the script.
 ```bash
-python3 auth.py
+python3 auth.py -u jimmy -p jimmypass
 ```
 ## Optional: Create a Service to run the script.
 Create a new service file
@@ -43,7 +44,7 @@ After=multi-user.target
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/bin/python3 /home/<username>/auth.py
+ExecStart=/usr/bin/python3 /home/<username>/auth.py -u jimmy -p jimmypass
 [Install]
 WantedBy=multi-user.target
 ```

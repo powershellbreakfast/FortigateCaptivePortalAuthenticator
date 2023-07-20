@@ -47,3 +47,11 @@ ExecStart=/usr/bin/python3 /home/<username>/auth.py
 [Install]
 WantedBy=multi-user.target
 ```
+Install the service
+```bash
+sudo systemctl enable fgtauth.service
+```
+Start the service
+```bash
+sudo systemctl start test.service
+```
